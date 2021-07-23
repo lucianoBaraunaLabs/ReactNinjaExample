@@ -4,10 +4,11 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Card as MaterialCard,
+  Container,
   Grid,
   Typography
 } from '@material-ui/core'
-import { CardLink, Divider, HeaderContent, H3, PizzasGrid } from 'ui'
+import { CardLink, Content, Divider, HeaderContent, H3, PizzasGrid } from 'ui'
 import { singularOrPlural, toMoney } from 'utils'
 import { HOME } from 'routes'
 
@@ -39,31 +40,39 @@ const ChoosePizzaFlavours = ({ location }) => {
   }
   return (
     <>
-      <HeaderContent>
-        <H3>
-          Escolha até {`${flavours} ${singularOrPlural(location.state.flavours, 'sabor', 'sabores')}`}
-        </H3>
-      </HeaderContent>
-      <PizzasGrid>
-        {pizzaFlavours.map((pizza) => (
-          <Grid item key={pizza.id} xs>
-            <Card checked={!!checkboxes[pizza.id]}>
-              <Label>
-                <CheckBox
-                  checked={!!checkboxes[pizza.id]}
-                  onChange={handleChangeCheckBox(pizza.id)}
-                />
-                <Img src={pizza.image} alt={pizza.name} />
-                <Divider />
-                <Typography>{pizza.name}</Typography>
-                <Typography variant='h5'>
-                  {toMoney(pizza.value[id])}
-                </Typography>
-              </Label>
-            </Card>
-          </Grid>
-        ))}
-      </PizzasGrid>
+      <Content>
+        <HeaderContent>
+          <H3>
+            Escolha até {`${flavours} ${singularOrPlural(location.state.flavours, 'sabor', 'sabores')}`}
+          </H3>
+        </HeaderContent>
+        <PizzasGrid>
+          {pizzaFlavours.map((pizza) => (
+            <Grid item key={pizza.id} xs>
+              <Card checked={!!checkboxes[pizza.id]}>
+                <Label>
+                  <CheckBox
+                    checked={!!checkboxes[pizza.id]}
+                    onChange={handleChangeCheckBox(pizza.id)}
+                  />
+                  <Img src={pizza.image} alt={pizza.name} />
+                  <Divider />
+                  <Typography>{pizza.name}</Typography>
+                  <Typography variant='h5'>
+                    {toMoney(pizza.value[id])}
+                  </Typography>
+                </Label>
+              </Card>
+            </Grid>
+          ))}
+        </PizzasGrid>
+      </Content>
+      <Footer>
+        <Container>
+          Conteúdo
+
+        </Container>
+      </Footer>
     </>
   )
 }
@@ -93,6 +102,11 @@ const Label = styled(CardLink).attrs({
 
 const Img = styled.img`
   width: 200px;
+`
+const Footer = styled.footer`
+  box-shadow: 0 0 3px ${({ theme }) => theme.palette.grey[400]};
+  padding: ${({ theme }) => theme.spacing(3)}px;
+  width: 100%;
 `
 
 export default ChoosePizzaFlavours

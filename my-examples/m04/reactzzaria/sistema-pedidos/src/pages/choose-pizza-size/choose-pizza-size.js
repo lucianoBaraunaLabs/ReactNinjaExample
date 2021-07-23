@@ -5,7 +5,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core'
-import { CardLink, Divider, HeaderContent, H3, H4, PizzasGrid } from 'ui'
+import { CardLink, Content, Divider, HeaderContent, H3, H4, PizzasGrid } from 'ui'
 import { singularOrPlural } from 'utils'
 import { AuthContext } from 'contexts/auth'
 import pizzaSizes from 'fake-data/pizzas-sizes'
@@ -16,7 +16,7 @@ const ChoosePizzaSize = () => {
   const { userInfo } = useContext(AuthContext)
 
   return (
-    <>
+    <Content>
       <HeaderContent>
         <H3>
           O que vai ser hoje, {userInfo.user.firstName}? =)
@@ -53,7 +53,7 @@ const ChoosePizzaSize = () => {
           </Grid>
         ))}
       </PizzasGrid>
-    </>
+    </Content>
   )
 }
 
