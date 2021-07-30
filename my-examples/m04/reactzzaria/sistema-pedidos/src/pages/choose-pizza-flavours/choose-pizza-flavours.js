@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import t from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
+  Button as MaterialButton,
   Card as MaterialCard,
   Container,
   Grid,
@@ -10,18 +11,22 @@ import {
 } from '@material-ui/core'
 import { CardLink, Content, Divider, HeaderContent, H3, PizzasGrid } from 'ui'
 import { singularOrPlural, toMoney } from 'utils'
-import { HOME } from 'routes'
+import { HOME, CHOOSE_PIZZA_QUANTITY } from 'routes'
+import { AuthContext } from 'contexts/auth'
 
 import pizzaFlavours from 'fake-data/pizzas-flavours'
 
 const ChoosePizzaFlavours = ({ location }) => {
   const [checkboxes, setCheckboxes] = useState({})
+  const { userInfo } = useContext(AuthContext)
+  console.log('userInfo: ', userInfo)
   console.log('logo de cara', checkboxes)
   if (!location.state) {
     return <Redirect to={HOME} />
   }
 
-  const { flavours, id } = location.state
+  const { flavours, id, slices, name } = location.state
+  console.log(location.state)
 
   const handleChangeCheckBox = (pizzaId) => (e) => {
     if (
@@ -71,10 +76,18 @@ const ChoosePizzaFlavours = ({ location }) => {
         <Container>
           <Grid container>
             <OrderContainer item>
-              Pedidos
+              <Typography>
+                <b>{userInfo.user.firstName}, seu pedido é:</b>
+              </Typography>
+              <Typography>
+                Pizza <b>{name.toUpperCase()}</b> {'- '}
+                ({slices} {singularOrPlural(slices, 'fatia', 'fatias')} {'- '}
+                {flavours} {singularOrPlural(flavours, 'sabor', 'sabores')})
+              </Typography>
             </OrderContainer>
             <Grid item>
-              Botões
+              <Button to={HOME}>Mudar tamanho</Button>
+              <Button to={CHOOSE_PIZZA_QUANTITY} color='primary'>Quantas pizzas ?</Button>
             </Grid>
           </Grid>
 
@@ -120,6 +133,13 @@ const OrderContainer = styled(Grid).attrs({
   item: true
 })`
   flex-grow: 1;
+`
+
+const Button = styled(MaterialButton).attrs({
+  variant: 'contained',
+  component: Link
+})`
+  margin-left: ${({ theme }) => theme.spacing(2)}px;
 `
 
 export default ChoosePizzaFlavours
