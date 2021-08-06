@@ -8,11 +8,10 @@ import {
   Grid,
   Typography
 } from '@material-ui/core'
-import { HOME, CHOOSE_PIZZA_QUANTITY } from 'routes'
 import { useAuth } from 'hooks'
 import { singularOrPlural } from 'utils'
 
-function Footer ({ location }) {
+function Footer ({ buttons, location }) {
   const { userInfo } = useAuth()
   const { name, slices, flavours } = location.state
 
@@ -31,8 +30,7 @@ function Footer ({ location }) {
             </Typography>
           </OrderContainer>
           <Grid item>
-            <Button to={HOME}>Mudar tamanho</Button>
-            <Button to={CHOOSE_PIZZA_QUANTITY} color='primary'>Quantas pizzas ?</Button>
+            {buttons.map((button) => (<Button key={button.to} {...button} />))}
           </Grid>
         </Grid>
 
@@ -42,6 +40,7 @@ function Footer ({ location }) {
 }
 
 Footer.propTypes = {
+  buttons: t.array.isRequired,
   location: t.object.isRequired
 }
 

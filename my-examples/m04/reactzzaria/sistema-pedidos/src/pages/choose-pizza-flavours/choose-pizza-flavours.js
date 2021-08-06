@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import { CardLink, Content, Divider, Footer, HeaderContent, H3, PizzasGrid } from 'ui'
 import { singularOrPlural, toMoney } from 'utils'
-import { HOME } from 'routes'
+import { HOME, CHOOSE_PIZZA_QUANTITY } from 'routes'
 
 import pizzaFlavours from 'fake-data/pizzas-flavours'
 
@@ -66,7 +66,18 @@ const ChoosePizzaFlavours = ({ location }) => {
           ))}
         </PizzasGrid>
       </Content>
-      <Footer />
+      <Footer buttons={[
+        {
+          to: HOME,
+          children: 'Mudar tamanho'
+        },
+        {
+          to: CHOOSE_PIZZA_QUANTITY,
+          children: 'Quantas pizzas ?',
+          color: 'primary'
+        }
+      ]}
+      />
     </>
   )
 }
