@@ -13,8 +13,11 @@ import { singularOrPlural } from 'utils'
 
 function Footer ({ buttons, location }) {
   const { userInfo } = useAuth()
-  const { name, slices, flavours } = location.state
 
+  const { pizzaSize, pizzaFlavours } = location.state
+  const { name, slices, flavours } = pizzaSize
+
+  console.log('pizzaFlavours', pizzaFlavours)
   return (
     <FooterContent>
       <Container>
@@ -28,6 +31,12 @@ function Footer ({ buttons, location }) {
               ({slices} {singularOrPlural(slices, 'fatia', 'fatias')} {'- '}
               {flavours} {singularOrPlural(flavours, 'sabor', 'sabores')})
             </Typography>
+            {pizzaFlavours && (
+              <Typography>
+                {singularOrPlural(pizzaFlavours.length, 'no sabor', 'nos sabores')}{' '}
+                <b>{pizzaFlavours.map(({ name }) => name).join(', ')}</b>
+              </Typography>
+            )}
           </OrderContainer>
           <Grid item>
             {buttons.map((button) => (<Button key={button.to} {...button} />))}
