@@ -3,6 +3,7 @@ import t from 'prop-types'
 import styled from 'styled-components'
 import { Redirect } from 'react-router-dom'
 import {
+  Button,
   Input as MaterialInput
 } from '@material-ui/core'
 import { Content, HeaderContent, H4, Footer } from 'ui'
@@ -31,6 +32,7 @@ function ChoosePizzaQuantity ({ location }) {
         </HeaderContent>
         <MainContent>
           <Input value={quantity} onChange={handleChange} autoFocus />
+          <Button variant='contained' color='secondary'>Adicionar <br /> e montar outra</Button>
         </MainContent>
       </Content>
       <Footer buttons={{
@@ -53,14 +55,18 @@ ChoosePizzaQuantity.propTypes = {
 }
 
 const MainContent = styled.div`
+  align-items: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-top: ${({ theme }) => theme.spacing(2)}px
 `
 
 const Input = styled(MaterialInput).attrs({
   type: 'number'
 })`
+  && {
+    margin-bottom: ${({ theme }) => theme.spacing(3)}px
+  }
   & input {
     font-size: 80px;
     padding: 10px;
