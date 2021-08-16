@@ -38,7 +38,7 @@ function Footer ({ buttons, history, location }) {
               </Typography>
             )}
           </OrderContainer>
-          <Grid item>
+          <ButtonsContainer item>
             <Button
               {...buttons.back}
               component='a'
@@ -51,7 +51,7 @@ function Footer ({ buttons, history, location }) {
               {...buttons.action}
               component={Link} color='primary'
             />
-          </Grid>
+          </ButtonsContainer>
         </Grid>
 
       </Container>
@@ -75,6 +75,13 @@ const OrderContainer = styled(Grid).attrs({
   item: true
 })`
   flex-grow: 1;
+`
+
+const ButtonsContainer = styled(Grid).attrs({
+  item: true
+})`
+  display: flex;
+  align-items: center;
 `
 
 const Button = styled(MaterialButton).attrs({
