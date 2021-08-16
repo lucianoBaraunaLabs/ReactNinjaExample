@@ -4,7 +4,6 @@ import {
   Input as MaterialInput
 } from '@material-ui/core'
 import { Content, HeaderContent, H4, Footer } from 'ui'
-import { CHOOSE_PIZZA_FLAVOURS } from 'routes'
 
 function ChoosePizzaQuantity () {
   return (
@@ -19,17 +18,15 @@ function ChoosePizzaQuantity () {
           <Input defaultValue='1' autoFocus />
         </MainContent>
       </Content>
-      <Footer buttons={[
-        {
-          to: CHOOSE_PIZZA_FLAVOURS,
+      <Footer buttons={{
+        back: {
           children: 'Mudar sabores'
         },
-        {
+        action: {
           to: '/',
-          children: 'Finalizar compra',
-          color: 'primary'
+          children: 'Finalizar compra'
         }
-      ]}
+      }}
       />
 
     </>
