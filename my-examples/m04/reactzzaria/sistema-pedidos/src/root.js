@@ -5,7 +5,7 @@ import { CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 import App from './app'
-import AuthProvider from 'contexts/auth'
+import { AuthProvider, OrderProvider } from 'contexts'
 
 const theme = createMuiTheme({})
 
@@ -15,15 +15,17 @@ const Root = () => (
   <MuiThemeProvider theme={theme}>
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <CssBaseline />
-        <GlobalStyle />
-        <BrowserRouter>
-          {/*
-              Colocando as informações de rota dentro do App
-              utilizando o componente Route
-            */}
-          <Route component={App} />
-        </BrowserRouter>
+        <OrderProvider>
+          <CssBaseline />
+          <GlobalStyle />
+          <BrowserRouter>
+            {/*
+                Colocando as informações de rota dentro do App
+                utilizando o componente Route
+              */}
+            <Route component={App} />
+          </BrowserRouter>
+        </OrderProvider>
       </AuthProvider>
     </ThemeProvider>
   </MuiThemeProvider>
