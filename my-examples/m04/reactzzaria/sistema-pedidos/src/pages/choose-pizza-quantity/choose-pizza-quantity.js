@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import t from 'prop-types'
 import styled from 'styled-components'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
   Button,
   Input as MaterialInput
@@ -9,8 +9,11 @@ import {
 import { Content, HeaderContent, H4, Footer } from 'ui'
 import { HOME, CHECKOUT } from 'routes'
 
+import { useOrder } from 'hooks'
+
 function ChoosePizzaQuantity ({ location }) {
   const [quantity, setQuantity] = useState(1)
+  const { addPizzaOrder } = useOrder()
 
   if (!location.state) {
     return <Redirect to={HOME} />
@@ -20,6 +23,14 @@ function ChoosePizzaQuantity ({ location }) {
     const { value } = e.target
 
     if (value >= 1) setQuantity(e.target.value)
+  }
+
+  function addPizza () {
+    addPizzaOrder({
+      size: location.state.pizzaSize.id,
+      flavours: location.state.pizzaFlavours.map((f) => f.id),
+      quantity
+    })
   }
 
   return (
@@ -32,7 +43,12 @@ function ChoosePizzaQuantity ({ location }) {
         </HeaderContent>
         <MainContent>
           <Input value={quantity} onChange={handleChange} autoFocus />
-          <Button variant='contained' color='secondary'>Adicionar <br /> e montar outra</Button>
+          <ButtonAddPizza
+            to={HOME}
+            onClick={addPizza}
+          >
+            Adicionar <br /> e montar outra
+          </ButtonAddPizza>
         </MainContent>
       </Content>
       <Footer buttons={{
@@ -41,6 +57,7 @@ function ChoosePizzaQuantity ({ location }) {
         },
         action: {
           to: CHECKOUT,
+          onClick: addPizza,
           children: 'Finalizar compra'
         }
       }}
@@ -73,6 +90,14 @@ const Input = styled(MaterialInput).attrs({
     text-align: center;
     width: 150px;
   }
+`
+
+const ButtonAddPizza = styled(Button).attrs({
+  color: 'secondary',
+  component: Link,
+  variant: 'contained'
+})`
+  text-align: center;
 `
 
 export default ChoosePizzaQuantity
