@@ -9,10 +9,18 @@ import Header from './header'
 const ChoosePizzaSize = React.lazy(
   () => import('pages/choose-pizza-size')
 )
+
 const ChoosePizzaSizeFlavours = React.lazy(
   () => import('pages/choose-pizza-flavours')
 )
-const ChoosePizzaQuantity = React.lazy(() => import('pages/choose-pizza-quantity'))
+
+const ChoosePizzaQuantity = React.lazy(
+  () => import('pages/choose-pizza-quantity')
+)
+
+const Checkout = React.lazy(
+  () => import('pages/checkout')
+)
 
 const Main = () => (
   <>
@@ -25,6 +33,7 @@ const Main = () => (
         <Route path={route.HOME} exact component={ChoosePizzaSize} />
         <Route path={route.CHOOSE_PIZZA_FLAVOURS} component={ChoosePizzaSizeFlavours} />
         <Route path={route.CHOOSE_PIZZA_QUANTITY} component={ChoosePizzaQuantity} />
+        <Route path={route.CHECKOUT} component={Checkout} />
       </Switch>
     </Suspense>
   </>
