@@ -17,7 +17,6 @@ function Footer ({ buttons, history, location }) {
   const { pizzaSize, pizzaFlavours } = location.state
   const { name, slices, flavours } = pizzaSize
 
-  console.log('pizzaFlavours', pizzaFlavours)
   return (
     <FooterContent>
       <Container>

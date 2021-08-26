@@ -29,7 +29,6 @@ const ChoosePizzaFlavours = ({ location }) => {
     }
 
     setCheckboxes((checkboxes) => {
-      console.log('handleChangeCheckBox', checkboxes)
       return {
         ...checkboxes,
         [pizzaId]: e.target.checked
