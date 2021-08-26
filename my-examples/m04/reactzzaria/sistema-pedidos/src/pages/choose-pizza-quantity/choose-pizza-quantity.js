@@ -27,8 +27,7 @@ function ChoosePizzaQuantity ({ location }) {
 
   function addPizza () {
     addPizzaOrder({
-      size: location.state.pizzaSize.id,
-      flavours: location.state.pizzaFlavours.map((f) => f.id),
+      ...location.state,
       quantity
     })
   }
