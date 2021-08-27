@@ -26,6 +26,10 @@ const CheckoutConfirmation = React.lazy(
   () => import('pages/checkout-confirmation')
 )
 
+const CheckoutSuccess = React.lazy(
+  () => import('pages/checkout-success')
+)
+
 const Main = () => (
   <>
     <Header />
@@ -59,6 +63,11 @@ const Main = () => (
         <Route
           path={route.CHECKOUT_CONFIRMATION}
           component={CheckoutConfirmation}
+        />
+
+        <Route
+          path={route.CHECKOUT_SUCCESS}
+          component={CheckoutSuccess}
         />
       </Switch>
     </Suspense>
