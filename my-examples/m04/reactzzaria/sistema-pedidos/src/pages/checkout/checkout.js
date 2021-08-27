@@ -2,6 +2,7 @@ import React from 'react'
 import t from 'prop-types'
 import styled from 'styled-components'
 import {
+  Button,
   Grid,
   List,
   ListItem,
@@ -77,7 +78,9 @@ function Checkout () {
         </Grid>
       </Content>
       <Footer>
-        Footer do checkot
+        <FooterContent>
+          <Button variant='contained' color='primary'>Confirmar dados</Button>
+        </FooterContent>
       </Footer>
     </>
   )
@@ -97,6 +100,11 @@ function TextField ({ xs, autoFocus, ...props }) {
     </Grid>
   )
 }
+
+const FooterContent = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
 
 TextField.propTypes = {
   autoFocus: t.bool,
