@@ -1,6 +1,7 @@
 import React from 'react'
 import t from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import {
   Button,
   Grid,
@@ -9,11 +10,10 @@ import {
 } from '@material-ui/core'
 import {
   Content,
-  Footer,
   OrderInfo,
   Title as UiTitle
 } from 'ui'
-import { Link } from 'react-router-dom'
+import FooterCheckout from './footer-checkout'
 import { CHECKOUT_CONFIRMATION } from 'routes'
 
 function Checkout () {
@@ -50,18 +50,16 @@ function Checkout () {
           </Grid>
         </Grid>
       </Content>
-      <Footer>
-        <FooterContent>
-          <Button
-            variant='contained'
-            color='primary'
-            component={Link}
-            to={CHECKOUT_CONFIRMATION}
-          >
-            Confirmar dados
-          </Button>
-        </FooterContent>
-      </Footer>
+      <FooterCheckout>
+        <Button
+          variant='contained'
+          color='primary'
+          component={Link}
+          to={CHECKOUT_CONFIRMATION}
+        >
+          Confirmar dados
+        </Button>
+      </FooterCheckout>
     </>
   )
 }
@@ -80,11 +78,6 @@ function TextField ({ xs, autoFocus, ...props }) {
     </Grid>
   )
 }
-
-const FooterContent = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
 
 TextField.propTypes = {
   autoFocus: t.bool,
