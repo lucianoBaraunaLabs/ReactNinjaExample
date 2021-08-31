@@ -8,10 +8,11 @@ function OrderProvider ({ children }) {
   const [pizzas, addPizza] = useState([])
   const [orderInProgress, setOrderInProgress] = useState(false)
 
-  function addPizzaOrder (pizza) {
+  function addPizzaToOrder (pizza) {
     if (orderInProgress) {
-      addPizza((pizzas) => pizzas.concat(newPizza(pizza)))
+      return addPizza((pizzas) => pizzas.concat(newPizza(pizza)))
     }
+
     setOrderInProgress(true)
     addPizza([newPizza(pizza)])
   }
@@ -25,22 +26,22 @@ function OrderProvider ({ children }) {
 
   function removePizzaFromOrder (id) {
     console.log('removePizzaFromOrder:', id)
-    // addPizza((pizzas) => pizzas.filter(p => p.id !== id))
+    addPizza((pizzas) => pizzas.filter(p => p.id !== id))
   }
 
   function sendOrder () {
-    console.log('sendOrder')
+    console.log('send order')
     setOrderInProgress(false)
   }
 
   return (
     <OrderContext.Provider value={{
-      addPizzaOrder,
-      removePizzaFromOrder,
-      sendOrder,
       order: {
         pizzas
-      }
+      },
+      addPizzaToOrder,
+      removePizzaFromOrder,
+      sendOrder
     }}
     >
       {children}

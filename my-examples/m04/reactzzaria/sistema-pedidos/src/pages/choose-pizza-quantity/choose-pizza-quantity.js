@@ -13,7 +13,7 @@ import { useOrder } from 'hooks'
 
 function ChoosePizzaQuantity ({ location }) {
   const [quantity, setQuantity] = useState(1)
-  const { addPizzaOrder } = useOrder()
+  const { addPizzaToOrder } = useOrder()
 
   if (!location.state) {
     return <Redirect to={HOME} />
@@ -26,7 +26,7 @@ function ChoosePizzaQuantity ({ location }) {
   }
 
   function addPizza () {
-    addPizzaOrder({
+    addPizzaToOrder({
       ...location.state,
       quantity
     })
