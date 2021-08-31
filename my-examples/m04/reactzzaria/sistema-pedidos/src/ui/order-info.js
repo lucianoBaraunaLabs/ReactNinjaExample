@@ -1,9 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
 import {
+  IconButton,
   List,
-  ListItem,
+  ListItem as MaterialListItem,
   Typography
 } from '@material-ui/core'
+import { Close } from '@material-ui/icons'
 import { singularOrPlural } from 'utils'
 import { useOrder } from 'hooks'
 
@@ -31,11 +34,17 @@ function OrderInfo () {
               {singularOrPlural(pizzaFlavours.length, 'no sabor', 'nos sabores')}{' '}
               <b>{pizzaFlavours.map(({ name }) => name).join(', ')}</b>
             </Typography>
+            <IconButton title='Remover' color='secondary'><Close /></IconButton>
           </ListItem>
         )
       })}
     </List>
   )
 }
+
+const ListItem = styled(MaterialListItem)`
+  display: flex;
+  justify-content: space-between
+`
 
 export default OrderInfo
