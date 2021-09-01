@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 
 function CheckoutConfirmation () {
   const { userInfo } = useAuth()
-  const { sendOrder } = useOrder()
+  const { order, sendOrder } = useOrder()
 
   return (
     <>
@@ -34,12 +34,21 @@ function CheckoutConfirmation () {
             <Divider />
 
             <H6>Endereço para entrega:</H6>
-            <Typography>RUa laola</Typography>
+            <Typography>
+              {order.address.address},
+              {' n'} {order.address.number},
+              {' '} {order.address.complement}<br />
+              Bairro: {order.address.district}<br />
+              CEP: {order.address.code}<br />
+              {order.address.city}/{order.address.state}
+            </Typography>
 
             <Divider />
 
             <H6>Telefone para contato:</H6>
-            <Typography>(44)99-99-99</Typography>
+            <Typography>
+              {order.phone}
+            </Typography>
 
           </PaperContainer>
         </Container>
