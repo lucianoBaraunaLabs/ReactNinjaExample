@@ -7,6 +7,7 @@ function FormAddress () {
   const [addressState, dispatch] = useReducer(reducer, initialState)
   const [fetchingCep, setFetchingCep] = useState(false)
   const numberField = useRef()
+  const addressField = useRef()
 
   useEffect(() => {
     async function fetchAdress () {
@@ -21,7 +22,23 @@ function FormAddress () {
       )
       setFetchingCep(false)
 
+      if (!data.ok) {
+        dispatch({ type: 'RESET' })
+        addressField.current.focus()
+        return
+      }
+
       const result = await data.json()
+
+      if (!result.ok) {
+        dispatch({
+          type: 'FAIL',
+          payload: {
+            error: result.message
+          }
+        })
+        return
+      }
 
       dispatch({
         type: 'UPDATE_FULL_ADDRESS',
@@ -55,7 +72,14 @@ function FormAddress () {
 
   return (
     <Grid container spacing={2} alignItems='center'>
-      <TextField label='CEP' xs={4} autoFocus value={cep} onChange={handleChangeCep} />
+      <TextField
+        label='CEP'
+        xs={4}
+        autoFocus
+        value={cep}
+        onChange={handleChangeCep}
+        error={!!addressState.error}
+      />
       <Grid item xs={8}>
         {fetchingCep && <CircularProgress size={20} />}
       </Grid>
@@ -64,7 +88,8 @@ function FormAddress () {
         {
           label: 'Rua',
           xs: 9,
-          name: 'address'
+          name: 'address',
+          inputRef: addressField
         },
 
         {
@@ -109,14 +134,27 @@ function reducer (state, action) {
   if (action.type === 'UPDATE_FULL_ADDRESS') {
     return {
       ...state,
-      ...action.payload
+      ...action.payload,
+      error: null
     }
   }
+
   if (action.type === 'UPDATE_FIELD') {
     return {
       ...state,
       [action.payload.name]: action.payload.value
     }
+  }
+
+  if (action.type === 'FAIL') {
+    return {
+      ...initialState,
+      error: action.payload.error
+    }
+  }
+
+  if (action.type === 'RESET') {
+    return initialState
   }
 }
 
