@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer, useState } from 'react'
-import { Grid } from '@material-ui/core'
+import { CircularProgress, Grid } from '@material-ui/core'
 import TextField from './text-field'
 
 function FormAddress () {
   const [cep, setCep] = useState('')
   const [addressState, dispatch] = useReducer(reducer, initialState)
+  const [fetchingCep, setFetchingCep] = useState(false)
 
   console.log('addressState: ', addressState)
   useEffect(() => {
@@ -14,9 +15,12 @@ function FormAddress () {
       }
       console.log('buscando cep', cep)
 
+      setFetchingCep(true)
       const data = await fetch(
         `https://ws.apicep.com/cep/${cep}.json`
       )
+      setFetchingCep(false)
+
       const result = await data.json()
 
       dispatch({
@@ -38,16 +42,56 @@ function FormAddress () {
       .replace(/(-\d{3})\d+?$/, '$1')
   }
 
-  return (
-    <Grid container spacing={2}>
-      <TextField label='CEP' xs={4} autoFocus value={cep} onChange={handleChangeCep} />
-      <Grid item xs={8} />
+  function handleChangeField (e) {
 
-      <TextField label='Rua' xs={9} />
-      <TextField label='Número' xs={3} />
-      <TextField label='Complemento' xs={12} />
-      <TextField label='Cidade' xs={9} />
-      <TextField label='Estado' xs={3} />
+  }
+
+  return (
+    <Grid container spacing={2} alignItems='center'>
+      <TextField label='CEP' xs={4} autoFocus value={cep} onChange={handleChangeCep} />
+      <Grid item xs={8}>
+        {fetchingCep && <CircularProgress size={20} />}
+      </Grid>
+
+      {[
+        {
+          label: 'Rua',
+          xs: 9,
+          name: 'address'
+        },
+
+        {
+          label: 'Número',
+          xs: 3,
+          name: 'number'
+        },
+
+        {
+          label: 'Complemento',
+          xs: 12,
+          name: 'complement'
+        },
+
+        {
+          label: 'Cidade',
+          xs: 9,
+          name: 'city'
+        },
+
+        {
+          label: 'Estado',
+          xs: 3,
+          name: 'state'
+        }
+      ].map((field) => (
+        <TextField
+          {...field}
+          key={field.name}
+          value={addressState[field.name]}
+          onChange={handleChangeField}
+          disabled={fetchingCep}
+        />
+      ))}
     </Grid>
   )
 }
