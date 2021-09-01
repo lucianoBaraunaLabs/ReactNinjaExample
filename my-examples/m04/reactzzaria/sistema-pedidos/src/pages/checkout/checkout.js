@@ -1,7 +1,7 @@
 import React from 'react'
 import t from 'prop-types'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
   Button,
   Grid,
@@ -14,9 +14,16 @@ import {
   Title as UiTitle
 } from 'ui'
 import FooterCheckout from './footer-checkout'
-import { CHECKOUT_CONFIRMATION } from 'routes'
+import { CHECKOUT_CONFIRMATION, HOME } from 'routes'
+import { useOrder } from 'hooks'
 
 function Checkout () {
+  const { order } = useOrder()
+
+  if (!order.pizzas.length) {
+    return <Redirect to={HOME} />
+  }
+
   return (
     <>
       <Content>
@@ -57,7 +64,7 @@ function Checkout () {
           component={Link}
           to={CHECKOUT_CONFIRMATION}
         >
-          Confirmar dados
+          Confirmar pedido
         </Button>
       </FooterCheckout>
     </>
