@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import TextField from './text-field'
 
 function FormAddress () {
   const [cep, setCep] = useState('')
+  const [addressState, dispatch] = useReducer(reducer, initialState)
 
+  console.log('addressState: ', addressState)
   useEffect(() => {
     async function fetchAdress () {
       if (cep.length < 9) {
@@ -17,7 +19,10 @@ function FormAddress () {
       )
       const result = await data.json()
 
-      console.log(result)
+      dispatch({
+        type: 'UPDATE_FULL_ADDRESS',
+        payload: result
+      })
     }
     fetchAdress()
   }, [cep])
@@ -45,6 +50,27 @@ function FormAddress () {
       <TextField label='Estado' xs={3} />
     </Grid>
   )
+}
+
+function reducer (state, action) {
+  console.log('REDUCER ACTION: ', action)
+  if (action.type === 'UPDATE_FULL_ADDRESS') {
+    return {
+      ...state,
+      ...action.payload
+    }
+  }
+}
+
+const initialState = {
+  code: '',
+  address: '',
+  number: '',
+  district: '',
+  complement: '',
+  city: '',
+  state: '',
+  error: null
 }
 
 export default FormAddress
