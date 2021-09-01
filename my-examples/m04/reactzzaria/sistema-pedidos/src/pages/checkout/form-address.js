@@ -1,9 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import TextField from './text-field'
 
 function FormAddress () {
   const [cep, setCep] = useState('')
+
+  useEffect(() => {
+    async function fetchAdress () {
+      if (cep.length < 9) {
+        return
+      }
+      console.log('buscando cep', cep)
+
+      const data = await fetch(
+        `https://ws.apicep.com/cep/${cep}.json`
+      )
+      const result = await data.json()
+
+      console.log(result)
+    }
+    fetchAdress()
+  }, [cep])
 
   function handleChangeCep (e) {
     setCep(cepMask(e.target.value))
