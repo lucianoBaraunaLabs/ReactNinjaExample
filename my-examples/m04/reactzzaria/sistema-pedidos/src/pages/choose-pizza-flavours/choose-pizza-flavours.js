@@ -14,7 +14,7 @@ import { useCollection } from 'hooks'
 
 const ChoosePizzaFlavours = ({ location }) => {
   const [checkboxes, setCheckboxes] = useState({})
-  const pizzasFlavours = useCollection('pizzaFlavours')
+  const pizzasFlavours = useCollection('pizzasFlavours')
 
   if (!location.state) {
     return <Redirect to={HOME} />
