@@ -1,11 +1,11 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 import App from './app'
-import { AuthProvider, OrderProvider } from 'contexts'
+import { AuthProvider } from 'contexts'
 
 const theme = createMuiTheme({})
 
@@ -15,17 +15,11 @@ const Root = () => (
   <MuiThemeProvider theme={theme}>
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <OrderProvider>
-          <CssBaseline />
-          <GlobalStyle />
-          <BrowserRouter>
-            {/*
-                Colocando as informações de rota dentro do App
-                utilizando o componente Route
-              */}
-            <Route component={App} />
-          </BrowserRouter>
-        </OrderProvider>
+        <CssBaseline />
+        <GlobalStyle />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
   </MuiThemeProvider>

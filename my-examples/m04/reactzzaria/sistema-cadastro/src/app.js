@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import t from 'prop-types'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch, useLocation } from 'react-router-dom'
 import { LinearProgress } from '@material-ui/core'
 import firebase from 'services/firebase'
 import { useAuth } from 'hooks'
@@ -11,7 +10,8 @@ import { HOME, LOGIN } from 'routes'
 const MainPage = lazy(() => import('pages/main'))
 const Login = lazy(() => import('pages/login'))
 
-function App ({ location }) {
+function App () {
+  const location = useLocation()
   const { userInfo, setUserInfo } = useAuth()
   const { isUserLoggedIn } = userInfo
   const [didCheckUserIn, setDidCheckUserIn] = useState(false)
@@ -56,10 +56,6 @@ function App ({ location }) {
       </Switch>
     </Suspense>
   )
-}
-
-App.propTypes = {
-  location: t.object.isRequired
 }
 
 export default App
