@@ -31,6 +31,9 @@
       "standard",
       "standard-jsx",
       "standard-react"
+    ],
+    "plugins": [
+      "only-warn"
     ]
   },
   "rescripts": [
@@ -61,6 +64,7 @@
     "eslint-config-standard-react": "11.0.1",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-only-warn": "1.0.3",
     "eslint-plugin-promise": "4.3.1",
     "eslint-plugin-react": "7.23.1",
     "react-hot-loader": "4.13.0",
