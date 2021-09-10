@@ -7,7 +7,11 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import App from './app'
 import { AuthProvider } from 'contexts'
 
-const theme = createMuiTheme({})
+const theme = createMuiTheme({
+  extend: {
+    drawerWidth: 280
+  }
+})
 
 console.log(theme)
 
