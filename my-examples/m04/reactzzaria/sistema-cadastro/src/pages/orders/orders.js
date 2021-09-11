@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import {
   Paper,
   Table,
@@ -9,9 +10,13 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core'
-import styled from 'styled-components'
+
+import { useOrders } from 'hooks'
 
 function Orders () {
+  const { orders } = useOrders()
+  console.log('orders: ', orders)
+
   return allOrderStatus.map((orderStatus) => (
     <TableContainer key={orderStatus.title}>
       <TableTitle>{orderStatus.title}</TableTitle>
