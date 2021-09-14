@@ -13,6 +13,9 @@ import {
 
 import { useOrders } from 'hooks'
 
+import { singularOrPlural } from 'utils'
+import { array } from 'prop-types'
+
 function Orders () {
   const { orders } = useOrders()
   console.log('orders: ', orders)
@@ -56,12 +59,32 @@ function Orders () {
                   </Subtitle>
 
                   <ul>
-                    <li>
-                      <Typography>
-                        1 pizza MÉDIA de {' '}
-                        Frango com Catupiry e Calabresa
-                      </Typography>
-                    </li>
+                    {order.pizzas.map((pizza, index) => (
+                      <li key={index}>
+                        <Typography>
+                          {pizza.quantity} {' '}
+                          {singularOrPlural(
+                            pizza.quantity,
+                            'pizza',
+                            'pizzas'
+                          )} {' '}
+                          {pizza.size.name.toUpperCase()} de {' '}
+                          {pizza.flavours
+                            .map(flavour => flavour.name)
+                            .reduce((acc, flavour, index, array) => {
+                              if (index === 0) {
+                                return flavour
+                              }
+
+                              if (index === array.length - 1) {
+                                return acc + ' ' + 'e' + ' ' + flavour
+                              }
+
+                              return acc + ',' + ' ' + flavour
+                            }, '')}
+                        </Typography>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
