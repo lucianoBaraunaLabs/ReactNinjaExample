@@ -16,8 +16,8 @@ import { useOrders } from 'hooks'
 import { singularOrPlural } from 'utils'
 
 function Orders () {
-  const { orders, status } = useOrders()
-  console.log('orders: ', orders)
+  const { orders, status, updateOrder } = useOrders()
+  console.log('orders:', orders)
 
   const allOrderStatus = useMemo(() => {
     return [
@@ -28,20 +28,23 @@ function Orders () {
         nextButtonTitle: 'Em produção',
         icon: DonutLarge
       },
+
       {
         title: 'Pedidos em produção',
         type: status.inProgress,
-        nextAction: status.outForDeliverey,
-        nextButtonTitle: ' Saiu para entrega',
+        nextAction: status.outForDelivery,
+        nextButtonTitle: 'Saiu para entrega',
         icon: Motorcycle
       },
+
       {
         title: 'Saiu para entrega',
-        type: status.outForDeliverey,
+        type: status.outForDelivery,
         nextAction: status.delivered,
         nextButtonTitle: 'Entregue',
         icon: Check
       },
+
       {
         title: 'Pedidos finalizados',
         type: status.delivered
@@ -58,9 +61,11 @@ function Orders () {
     return Intl.DateTimeFormat('pt-BR', options).format(date)
   }
 
-  return allOrderStatus.map((orderStatus) => (
+  return allOrderStatus.map(orderStatus => (
     <TableContainer key={orderStatus.title}>
-      <TableTitle>{orderStatus.title}</TableTitle>
+      <TableTitle>
+        {orderStatus.title}
+      </TableTitle>
       <Table>
         <THead>
           <TableRow>
@@ -69,22 +74,28 @@ function Orders () {
                 Informações do pedido
               </Typography>
             </Th>
+
             {orderStatus.nextAction && (
-              <Th>
-                <Typography align='center'>Mudar status</Typography>
+              <Th align='center'>
+                <Typography>
+                  Mudar status
+                </Typography>
               </Th>
             )}
           </TableRow>
         </THead>
 
         <TableBody>
-          {
-            orders?.[orderStatus.type].length === 0 && (
-              <TableRow>
-                <TableCell>Nenhum com esse status.</TableCell>
-              </TableRow>
-            )
-          }
+          {orders?.[orderStatus.type].length === 0 && (
+            <TableRow>
+              <TableCell>
+                <Typography>
+                  Nenhum pedido com esse status.
+                </Typography>
+              </TableCell>
+            </TableRow>
+          )}
+
           {orders?.[orderStatus.type].map(order => {
             const {
               address,
@@ -95,6 +106,7 @@ function Orders () {
               city,
               state
             } = order.address
+
             return (
               <TableRow key={order.id}>
                 <TableCell>
@@ -118,7 +130,7 @@ function Orders () {
                               pizza.quantity,
                               'pizza',
                               'pizzas'
-                            )} {' '}
+                            )}{' '}
                             {pizza.size.name.toUpperCase()} de {' '}
                             {pizza.flavours
                               .map(flavour => flavour.name)
@@ -128,8 +140,9 @@ function Orders () {
                                 }
 
                                 if (index === array.length - 1) {
-                                  return `${acc} e  ${flavour}`
+                                  return `${acc} e ${flavour}`
                                 }
+
                                 return `${acc}, ${flavour}`
                               }, '')}
                           </Typography>
@@ -139,10 +152,13 @@ function Orders () {
                   </div>
 
                   <div>
-                    <Subtitle>Endereço de entrega:</Subtitle>
+                    <Subtitle>
+                      Endereço de entrega:
+                    </Subtitle>
+
                     <Typography>
-                      {address}, {number && 'nº' + number} {' '}
-                      {complement && ',' + complement}<br />
+                      {address}, {number && `nº ${number}`} {' '}
+                      {complement && `, ${complement}`}<br />
                       Bairro: {district} - CEP: {cep}<br />
                       {city} / {state}
                     </Typography>
@@ -152,8 +168,11 @@ function Orders () {
                   <TableCell align='center'>
                     <Fab
                       color='primary'
-                      title={`Mudar status para ${orderStatus.nextButtonTitle}`}
-                      onClick={() => console.log('próximo status: ', orderStatus.nextAction)}
+                      title={`Mudar status para "${orderStatus.nextButtonTitle}"`}
+                      onClick={() => updateOrder({
+                        orderId: order.id,
+                        status: orderStatus.nextAction
+                      })}
                     >
                       <orderStatus.icon />
                     </Fab>
@@ -165,7 +184,6 @@ function Orders () {
         </TableBody>
       </Table>
     </TableContainer>
-
   ))
 }
 
@@ -195,7 +213,7 @@ const Subtitle = styled(Typography).attrs({
 
 const THead = styled(TableHead)`
   && {
-    background-color: ${({ theme }) => theme.palette.common.black};
+    background: ${({ theme }) => theme.palette.common.black};
   }
 `
 
