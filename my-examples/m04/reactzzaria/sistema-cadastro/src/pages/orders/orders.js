@@ -146,11 +146,13 @@ function Orders () {
                     </Typography>
                   </div>
                 </TableCell>
-                <TableCell align='center'>
-                  <Fab
-                    color='primary'
-                    title={`Mudar status para "${orderStatus.nextButtonTitle}"`} />
-                </TableCell>
+                {orderStatus.nextActions && (
+                  <TableCell align='center'>
+                    <Fab
+                      color='primary'
+                      title={`Mudar status para "${orderStatus.nextButtonTitle}"`} />
+                  </TableCell>
+                )}
               </TableRow>
             )
           })}
