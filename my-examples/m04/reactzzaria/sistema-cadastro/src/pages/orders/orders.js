@@ -11,9 +11,8 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core'
-
+import { Check, DonutLarge, Motorcycle } from '@material-ui/icons'
 import { useOrders } from 'hooks'
-
 import { singularOrPlural } from 'utils'
 
 function Orders () {
@@ -26,19 +25,22 @@ function Orders () {
         title: 'Pedidos pendentes',
         type: status.pending,
         nextAction: status.inProgress,
-        nextButtonTitle: 'Em produção'
+        nextButtonTitle: 'Em produção',
+        icon: DonutLarge
       },
       {
         title: 'Pedidos em produção',
         type: status.inProgress,
         nextAction: status.outForDeliverey,
-        nextButtonTitle: ' Saiu para entrega'
+        nextButtonTitle: ' Saiu para entrega',
+        icon: Motorcycle
       },
       {
         title: 'Saiu para entrega',
         type: status.outForDeliverey,
         nextAction: status.delivered,
-        nextButtonTitle: 'Entregue'
+        nextButtonTitle: 'Entregue',
+        icon: Check
       },
       {
         title: 'Pedidos finalizados',
@@ -67,9 +69,11 @@ function Orders () {
                 Informações do pedido
               </Typography>
             </Th>
-            <Th>
-              <Typography align='center'>Mudar statuss</Typography>
-            </Th>
+            {orderStatus.nextAction && (
+              <Th>
+                <Typography align='center'>Mudar status</Typography>
+              </Th>
+            )}
           </TableRow>
         </THead>
 
@@ -124,10 +128,9 @@ function Orders () {
                                 }
 
                                 if (index === array.length - 1) {
-                                  return acc + ' ' + 'e' + ' ' + flavour
+                                  return `${acc} e  ${flavour}`
                                 }
-
-                                return acc + ',' + ' ' + flavour
+                                return `${acc}, ${flavour}`
                               }, '')}
                           </Typography>
                         </li>
@@ -137,7 +140,6 @@ function Orders () {
 
                   <div>
                     <Subtitle>Endereço de entrega:</Subtitle>
-
                     <Typography>
                       {address}, {number && 'nº' + number} {' '}
                       {complement && ',' + complement}<br />
@@ -146,11 +148,15 @@ function Orders () {
                     </Typography>
                   </div>
                 </TableCell>
-                {orderStatus.nextActions && (
+                {orderStatus.nextAction && (
                   <TableCell align='center'>
                     <Fab
                       color='primary'
-                      title={`Mudar status para "${orderStatus.nextButtonTitle}"`} />
+                      title={`Mudar status para ${orderStatus.nextButtonTitle}`}
+                      onClick={() => console.log('próximo status: ', orderStatus.nextAction)}
+                    >
+                      <orderStatus.icon />
+                    </Fab>
                   </TableCell>
                 )}
               </TableRow>

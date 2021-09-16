@@ -1,35 +1,17 @@
 {
-  "name": "sistema-pedidos",
+  "name": "sistema-cadastro",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "4.11.3",
-    "@material-ui/icons": "4.11.2",
-    "@testing-library/jest-dom": "5.11.4",
-    "@testing-library/react": "11.1.0",
-    "@testing-library/user-event": "12.1.10",
-    "firebase": "8.3.2",
-    "prop-types": "15.7.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-router-dom": "5.2.0",
-    "react-scripts": "4.0.3",
-    "styled-components": "5.2.3",
-    "web-vitals": "1.0.1"
-  },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint:fix": "standard --fix --parser babel-eslint | snazzy"
+    "dev": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "lint:fix": "standard --fix | snazzy"
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
     "extends": [
       "react-app",
-      "react-app/jest",
       "standard",
-      "standard-jsx",
       "standard-react"
     ],
     "plugins": [
@@ -39,8 +21,8 @@
   "rescripts": [
     "env"
   ],
-  "stanard": {
-    "parser": "babel-eslint-parser",
+  "standard": {
+    "parser": "babel-eslint",
     "globals": [
       "fetch"
     ]
@@ -57,18 +39,32 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "@material-ui/core": "4.9.13",
+    "@material-ui/icons": "4.9.1",
+    "@testing-library/jest-dom": "5.7.0",
+    "@testing-library/react": "10.0.4",
+    "@testing-library/user-event": "10.1.2",
+    "firebase": "7.14.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.1.2",
+    "react-scripts": "3.4.1",
+    "styled-components": "5.1.0"
+  },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
-    "eslint-config-standard": "16.0.2",
-    "eslint-config-standard-jsx": "10.0.0",
-    "eslint-config-standard-react": "11.0.1",
-    "eslint-plugin-import": "2.22.1",
+    "@rescripts/cli": "0.0.14",
+    "@rescripts/rescript-env": "0.0.12",
+    "eslint-config-standard": "14.1.1",
+    "eslint-config-standard-react": "9.2.0",
+    "eslint-plugin-import": "2.20.2",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-only-warn": "1.0.3",
-    "eslint-plugin-promise": "4.3.1",
-    "eslint-plugin-react": "7.23.1",
-    "react-hot-loader": "4.13.0",
-    "snazzy": "9.0.0",
-    "standard": "16.0.3"
+    "eslint-plugin-only-warn": "1.0.2",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-standard": "4.0.1",
+    "react-hot-loader": "4.12.21",
+    "snazzy": "8.0.0",
+    "standard": "14.3.3"
   }
 }
