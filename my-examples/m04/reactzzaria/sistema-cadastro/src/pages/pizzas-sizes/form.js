@@ -34,7 +34,7 @@ const Container = styled(Grid).attrs({
   spacing: 2
 })`
   && {
-    margin-bottom: ${({ theme }) => theme.spacing(5)}
+    margin-bottom: ${({ theme }) => theme.spacing(5)}px;
   }
 `
 
