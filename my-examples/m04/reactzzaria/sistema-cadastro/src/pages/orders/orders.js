@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import {
+  Fab,
   Paper,
   Table,
   TableBody,
@@ -23,15 +24,21 @@ function Orders () {
     return [
       {
         title: 'Pedidos pendentes',
-        type: status.pending
+        type: status.pending,
+        nextAction: status.inProgress,
+        nextButtonTitle: 'Em produção'
       },
       {
         title: 'Pedidos em produção',
-        type: status.inProgress
+        type: status.inProgress,
+        nextAction: status.outForDeliverey,
+        nextButtonTitle: ' Saiu para entrega'
       },
       {
         title: 'Saiu para entrega',
-        type: status.outForDeliverey
+        type: status.outForDeliverey,
+        nextAction: status.delivered,
+        nextButtonTitle: 'Entregue'
       },
       {
         title: 'Pedidos finalizados',
@@ -59,6 +66,9 @@ function Orders () {
               <Typography>
                 Informações do pedido
               </Typography>
+            </Th>
+            <Th>
+              <Typography align='center'>Mudar statuss</Typography>
             </Th>
           </TableRow>
         </THead>
@@ -135,6 +145,11 @@ function Orders () {
                       {city} / {state}
                     </Typography>
                   </div>
+                </TableCell>
+                <TableCell align='center'>
+                  <Fab
+                    color='primary'
+                    title={`Mudar status para "${orderStatus.nextButtonTitle}"`} />
                 </TableCell>
               </TableRow>
             )

@@ -40,7 +40,7 @@
     "env"
   ],
   "stanard": {
-    "parser": "babel-eslint",
+    "parser": "babel-eslint-parser",
     "globals": [
       "fetch"
     ]
