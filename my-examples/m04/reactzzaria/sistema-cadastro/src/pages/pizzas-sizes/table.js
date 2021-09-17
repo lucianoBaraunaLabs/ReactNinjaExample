@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link, useRouteMatch } from 'react-router-dom'
 import {
   Button as MaterialButton,
   Grid,
@@ -13,8 +14,11 @@ import { TableContainer, TableTitle, THead, Th } from 'ui'
 import { useCollection } from 'hooks'
 import { singularOrPlural } from 'utils'
 
+import { PIZZAS_SIZES, NEW } from 'routes'
+
 function TablePizzasSizes () {
   const pizzaSizes = useCollection('pizzasSizes')
+  const newSizePath = useRouteMatch(`${PIZZAS_SIZES}${NEW}`)
 
   return (
     <TableContainer>
@@ -29,6 +33,9 @@ function TablePizzasSizes () {
           <Button
             color='primary'
             startIcon={<Add />}
+            component={Link}
+            disabled={!!newSizePath}
+            to={`${PIZZAS_SIZES}${NEW}`}
           >
             Adicionar novo tamanho
           </Button>
