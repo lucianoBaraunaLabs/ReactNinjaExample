@@ -1,21 +1,53 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { TextField } from 'ui'
-import { PIZZAS_SIZES, NEW } from 'routes'
+import { PIZZAS_SIZES } from 'routes'
+import { useCollection } from 'hooks'
 
 function FormRegisterSize () {
+  const { add } = useCollection('pizzasSizes')
+
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault()
+    const { name, size, slices, flavours } = e.target.elements
+
+    const normlaziedData = {
+      name: name.value,
+      size: +size.value,
+      slices: +slices.value,
+      flavours: Number(flavours.value)
+    }
+
+    add(normlaziedData)
+  }, [add])
   return (
     <Container>
       <Grid item xs={12}>
         <Typography variant='h4'>Cadastrar novo tamanho</Typography>
       </Grid>
-      <Grid item container xs={12} spacing={2} component='form'>
-        <TextField label='Nome para esse tamanho. Ex: pequena' />
-        <TextField label='Diâmetro da pizza em cm' />
-        <TextField label='Quantidade de fatias' />
-        <TextField label='Quantidade de sabores' />
+
+      <Form onSubmit={handleSubmit}>
+        <TextField
+          label='Nome para esse tamanho. Ex: pequena'
+          name='name'
+        />
+
+        <TextField
+          label='Diâmetro da pizza em cm'
+          name='size'
+        />
+
+        <TextField
+          label='Quantidade de fatias'
+          name='slices'
+        />
+
+        <TextField
+          label='Quantidade de sabores'
+          name='flavours'
+        />
 
         <Grid item container justify='flex-end' spacing={2}>
           <Grid item>
@@ -32,7 +64,7 @@ function FormRegisterSize () {
           </Grid>
         </Grid>
 
-      </Grid>
+      </Form>
     </Container>
   )
 }
@@ -45,5 +77,13 @@ const Container = styled(Grid).attrs({
     margin-bottom: ${({ theme }) => theme.spacing(5)}px;
   }
 `
+
+const Form = styled(Grid).attrs({
+  item: true,
+  container: true,
+  xs: 12,
+  spacing: 2,
+  component: 'form'
+})``
 
 export default FormRegisterSize
