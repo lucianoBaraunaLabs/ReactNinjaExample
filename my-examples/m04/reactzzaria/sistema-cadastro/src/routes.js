@@ -3,5 +3,6 @@ export const LOGIN = '/login'
 export const PIZZAS_SIZES = '/tamanhos'
 export const PIZZAS_FLAVOURS = '/sabores'
 
-// Actions
+// actions
 export const NEW = '/novo'
+export const EDIT = (id = ':id') => `/${id}/editar`

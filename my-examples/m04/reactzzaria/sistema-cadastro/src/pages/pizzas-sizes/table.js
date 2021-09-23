@@ -14,7 +14,7 @@ import { TableContainer, TableTitle, THead, Th } from 'ui'
 import { useCollection } from 'hooks'
 import { singularOrPlural } from 'utils'
 
-import { PIZZAS_SIZES, NEW } from 'routes'
+import { PIZZAS_SIZES, NEW, EDIT } from 'routes'
 
 function TablePizzasSizes () {
   const { data: pizzaSizes, remove } = useCollection('pizzasSizes')
@@ -65,7 +65,13 @@ function TablePizzasSizes () {
               </TableCell>
 
               <TableCell align='right'>
-                <Button startIcon={<Edit />}>Editar</Button>
+                <Button
+                  startIcon={<Edit />}
+                  component={Link}
+                  to={`${PIZZAS_SIZES}${EDIT(pizza.id)}`}
+                  >
+                    Editar
+                  </Button>
                 <Button
                   color='secondary'
                   startIcon={<Delete />}
