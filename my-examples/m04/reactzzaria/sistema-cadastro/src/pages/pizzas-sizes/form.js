@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { TextField } from 'ui'
@@ -8,8 +8,9 @@ import { useCollection } from 'hooks'
 
 function FormRegisterSize () {
   const { add } = useCollection('pizzasSizes')
+  const history = useHistory()
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
     const { name, size, slices, flavours } = e.target.elements
 
@@ -20,8 +21,9 @@ function FormRegisterSize () {
       flavours: Number(flavours.value)
     }
 
-    add(normlaziedData)
-  }, [add])
+    await add(normlaziedData)
+    history.push(PIZZAS_SIZES)
+  }, [add, history])
   return (
     <Container>
       <Grid item xs={12}>
