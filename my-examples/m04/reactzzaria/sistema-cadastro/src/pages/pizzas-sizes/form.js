@@ -7,9 +7,8 @@ import React, {
   useMemo
 } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import styled from 'styled-components'
 import { Button, Grid, Typography } from '@material-ui/core'
-import { TextField } from 'ui'
+import { TextField, Form, FormContainer } from 'ui'
 import { PIZZAS_SIZES } from 'routes'
 import { useCollection } from 'hooks'
 
@@ -69,7 +68,7 @@ function FormRegisterSize () {
     history.push(PIZZAS_SIZES)
   }, [add, edit, history, pizzaEditable])
   return (
-    <Container>
+    <FormContainer>
       <Grid item xs={12}>
         <Typography variant='h4'>{texts.title}</Typography>
       </Grid>
@@ -120,26 +119,9 @@ function FormRegisterSize () {
         </Grid>
 
       </Form>
-    </Container>
+    </FormContainer>
   )
 }
-
-const Container = styled(Grid).attrs({
-  container: true,
-  spacing: 2
-})`
-  && {
-    margin-bottom: ${({ theme }) => theme.spacing(5)}px;
-  }
-`
-
-const Form = styled(Grid).attrs({
-  item: true,
-  container: true,
-  xs: 12,
-  spacing: 2,
-  component: 'form'
-})``
 
 const initialState = {
   name: '',
