@@ -79,6 +79,7 @@ function TablePizzasFlavours () {
                     const sizeName = pizzasSizes
                       ?.find(s => s.id === sizeId)
                       ?.name
+
                     return (
                       <ListItem key={sizeId} name={sizeName} value={value} />
                     )
@@ -120,7 +121,7 @@ const ListItem = ({ name, value }) => (
 
 ListItem.propTypes = {
   name: t.string,
-  value: t.string
+  value: t.number.isRequired
 }
 
 export default TablePizzasFlavours
