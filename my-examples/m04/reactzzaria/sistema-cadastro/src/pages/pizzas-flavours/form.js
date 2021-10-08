@@ -22,7 +22,8 @@ function FormRegisterFlavour () {
   const nameField = useRef()
   const history = useHistory()
   const { data: pizzasSizes } = useCollection('pizzasSizes')
-  const { add  } = useCollection('pizzasFlavours')
+  const { pizza, add  } = usePizzaFlavour(id)
+  console.log(pizza)
 
   const texts = useMemo(() => ({
     title: id ? 'Editar sabor' : 'Cadastrar novo sabor',
@@ -99,6 +100,23 @@ function FormRegisterFlavour () {
       </Form>
     </FormContainer>
   )
+}
+
+const initialState = {
+  image: '',
+  name: '',
+  value: {}
+}
+
+function usePizzaFlavour (id) {
+  const { data, add, edit } = useCollection('pizzasFlavours')
+  const [pizza, setPizza] = useState(initialState)
+
+  useEffect(() => {
+    setPizza(data?.find(p => p.id === id) || initialState)
+  }, [pizza, id, setPizza, data])
+
+  return { pizza, add, edit }
 }
 
 export default FormRegisterFlavour
