@@ -27,6 +27,7 @@ import { useCollection } from 'hooks'
 function TablePizzasFlavours () {
   const newFlavourPath = useRouteMatch(`${PIZZAS_FLAVOURS}${NEW}`)
   const { data: pizzasFlavours, remove } = useCollection('pizzasFlavours')
+  const { data: pizzasSizes } = useCollection('pizzasSizes')
 
   console.log(pizzasFlavours)
 
@@ -63,7 +64,7 @@ function TablePizzasFlavours () {
 
         <TableBody>
           {pizzasFlavours?.map((pizza) => (
-            <TableRow ke={pizza.id}>
+            <TableRow key={pizza.id}>
               <TableCell>
                 <img
                   src={pizza.image}
@@ -74,9 +75,14 @@ function TablePizzasFlavours () {
               <TableCell>{pizza.name}</TableCell>
               <TableCell>
                 <List>
-                  <ListItem name='Broto' value={10} />
-                  <ListItem name='Pequena' value={20} />
-                  <ListItem name='Média' value={30} />
+                  {Object.entries(pizza.value).map(([sizeId, value]) => {
+                    const sizeName = pizzasSizes
+                      ?.find(s => s.id === sizeId)
+                      ?.name
+                    return (
+                      <ListItem key={sizeId} name={sizeName} value={value} />
+                    )
+                  })}
                 </List>
               </TableCell>
               <TableCell align='right'>
@@ -113,8 +119,8 @@ const ListItem = ({ name, value }) => (
 )
 
 ListItem.propTypes = {
-  name: t.string.isRequired,
-  value: t.number.isRequired
+  name: t.string,
+  value: t.string
 }
 
 export default TablePizzasFlavours
