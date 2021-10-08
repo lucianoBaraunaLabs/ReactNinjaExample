@@ -21,7 +21,7 @@ import { singularOrPlural } from 'utils'
 import { PIZZAS_SIZES, NEW, EDIT } from 'routes'
 
 function TablePizzasSizes () {
-  const { data: pizzaSizes, remove } = useCollection('pizzasSizes')
+  const { data: pizzaSizes, removePizzaSize: remove } = useCollection('pizzasSizes')
   const newSizePath = useRouteMatch(`${PIZZAS_SIZES}${NEW}`)
 
   return (
