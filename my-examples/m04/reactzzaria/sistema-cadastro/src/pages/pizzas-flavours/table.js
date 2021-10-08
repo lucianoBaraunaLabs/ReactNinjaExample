@@ -29,8 +29,6 @@ function TablePizzasFlavours () {
   const { data: pizzasFlavours, remove } = useCollection('pizzasFlavours')
   const { data: pizzasSizes } = useCollection('pizzasSizes')
 
-  console.log(pizzasFlavours)
-
   return (
     <TableContainer>
       <TableTitleContainer>
